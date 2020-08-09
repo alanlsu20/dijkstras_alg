@@ -7,7 +7,6 @@ Authors: Alan Su and Peter Holmes
 from math import inf
 from string import ascii_uppercase as caps
 
-
 class Grid:
     def __init__(self, node_list, num, gridsize='N/A'):
         keys = [node_list[i] for i in range(num)]
@@ -27,10 +26,10 @@ class Grid:
         
         return rep
                  
-    def edge(self, node1, node2, distance = 1):
+    def edge(self, node1, node2, distance = 12):
         """ 
         specify a connection between two nodes, and their distance if desired - 
-        if distance not input will be assigned value of '1'
+        if distance not input will be assigned value of '10'
         """
         
         g = self.grid
@@ -102,37 +101,6 @@ class Grid:
             self.grid[x]['dist'][index] = inf
 
 
-def example1(): 
-    g = Grid(caps, 5)
-    g.edge('A', 'B', 3)
-    g.edge('A', 'C', 7)
-    g.edge('A', 'E', 2)
-    g.edge('B', 'C', 5)
-    g.edge('B', 'D', 9)
-    g.edge('B', 'E', 8)
-    return g
-
-def example2():
-    node_list=[]
-    for i in range(9):
-        node_list.append(str(i))
-    g=Grid(node_list,9)
-    g.edge('0','1',4)
-    g.edge('0','7',8)
-    g.edge('1','7',11)
-    g.edge('1','2',8)
-    g.edge('7','8',7)
-    g.edge('7','6',1)
-    g.edge('2','8',2)
-    g.edge('8','6',6)
-    g.edge('2','3',7)
-    g.edge('2','5',4)
-    g.edge('6','5',2)
-    g.edge('3','5',14)
-    g.edge('3','4',9)
-    g.edge('5','4',10)
-    return g
-
 def truegrid(fname):
     """Creates a true grid from a file. Outline for file specificaitons in 
     file_reader() doc string. Print using gridprinter(). """
@@ -162,7 +130,7 @@ def gridprinter(grid):
             print(current, end="")
             if j!=(n-1): 
                 rightnode=grid.nodes()[j+(i*n)+1]
-                print("==[{:^3}]==" .format(grid.dist2(current,rightnode)), end="")
+                print("==[{:^3}]==".format(grid.dist2(current,rightnode)), end="")
             else:
                 print("")
         if i!=(m-1): #if not last line
@@ -175,7 +143,7 @@ def gridprinter(grid):
             for j in range(n):#vertical distance
                 current=grid.nodes()[j+(i*n)]
                 upnode=grid.nodes()[j+((i+1)*n)]
-                print("[{:^4}]" .format(grid.dist2(current,upnode)), end="")
+                print("[{:^4}]".format(grid.dist2(current,upnode)), end="")
                 if j!=(n-1):
                     print("         ", end="")
                 else:
@@ -186,17 +154,6 @@ def gridprinter(grid):
                     print("         ", end="")
                 else:
                     print("")           
-
-def matreader(mat): #delete?
-    node_list=[]
-    for i in range(len(mat)):
-        node_list.append(str(i))
-    g=Grid(node_list,len(mat))
-    for i in range(1,len(mat)):#reads lower triangular
-        for j in range(i):
-            if mat[i][j]!=0:
-                g.edge(str(i),str(j),mat[i][j])
-    return g
 
 def file_reader(fname):
     """Preliminary file_reader. Needs to be made more robust. Use .txt file where
@@ -225,4 +182,40 @@ def file_reader(fname):
             across[i][j]=int(across[i][j])
     return across, updown
     
+
+def example1(): 
+    g = Grid(caps, 5)
+    g.edge('A', 'B', 3)
+    g.edge('A', 'C', 7)
+    g.edge('A', 'E', 2)
+    g.edge('B', 'C', 5)
+    g.edge('B', 'D', 9)
+    g.edge('B', 'E', 6)
+    g.fill()
+    return g
+
+def example2():
+    node_list=[]
+    for i in range(9):
+        node_list.append(str(i))
+    g=Grid(node_list,9)
+    g.edge('0','1',4)
+    g.edge('0','7',8)
+    g.edge('1','7',11)
+    g.edge('1','2',8)
+    g.edge('7','8',7)
+    g.edge('7','6',1)
+    g.edge('2','8',2)
+    g.edge('8','6',6)
+    g.edge('2','3',7)
+    g.edge('2','5',4)
+    g.edge('6','5',2)
+    g.edge('3','5',14)
+    g.edge('3','4',9)
+    g.edge('5','4',10)
+    return g
+
+def example3():
+    g = truegrid('grid2.txt')
+    return g
 
