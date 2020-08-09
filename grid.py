@@ -28,8 +28,8 @@ class Grid:
                  
     def edge(self, node1, node2, distance = 12):
         """ 
-        specify a connection between two nodes, and their distance if desired - 
-        if distance not input will be assigned value of '10'
+        Specify a connection between two nodes, and their distance if desired. 
+        If distance not input will be assigned value of '10'
         """
         
         g = self.grid
@@ -44,7 +44,7 @@ class Grid:
             raise KeyError("Input names of two different existing nodes")
             
     def fill(self):
-        """ auto-fills all remaining possible connections betweeen nodes """
+        """ Auto-fills all remaining possible connections betweeen nodes """
         nodes = self.nodes()
         g = self.grid
         
@@ -54,7 +54,7 @@ class Grid:
                     self.edge(node1, node2)
 
     def nodes(self):
-        """ return list of all nodes within Grid class """
+        """ Return list of all nodes within Grid class """
         node_list = []
         
         for key in self.grid.keys():
@@ -63,19 +63,19 @@ class Grid:
         return node_list
        
     def size(self):
-        """ return size of Grid class """
+        """ Return size of Grid class """
         return len(self.grid)   
               
     def adj(self, node):
-        """ return all adjacencies of an inputted node """
+        """ Return all adjacencies of an inputted node """
         return self.grid[node]['adj']
     
     def dist(self, node):
-        """ return all distances from an inputted node """
+        """ Return all distances from an inputted node """
         return self.grid[node]['dist']
     
     def dist2(self, node1, node2):
-        """ returns the distance bewteen two inputted nodes """
+        """ Returns the distance bewteen two inputted nodes """
         adj1=self.adj(node1)
         dist1=self.dist(node1)
         adjdict={}
@@ -88,7 +88,7 @@ class Grid:
             
     def avoid(self, node):
         """ 
-        sets distances to and from inputted node equal to infity to ensure node
+        Sets distances to and from inputted node equal to infity to ensure node
         is avoided in path finding algorithms
         """
         for i in range(len(self.dist(node))):
@@ -102,8 +102,10 @@ class Grid:
 
 
 def truegrid(fname):
-    """Creates a true grid from a file. Outline for file specificaitons in 
-    file_reader() doc string. Print using gridprinter(). """
+    """
+    Creates a true grid from a file. Outline for file specificaitons in 
+    file_reader() doc string. Print using gridprinter(). 
+    """
     across, updown=file_reader(fname)
     m=len(across)
     n=len(updown[0])
@@ -121,8 +123,11 @@ def truegrid(fname):
     return g
 
 def gridprinter(grid):
-    """Prints grid visually in command line. Starts with (0,0) node at top left.
-    (m,n) increases in n moving right across the row, increases in m moving down the column."""
+    """
+    Prints grid visually in command line. Starts with (0,0) node at top left.
+    (m,n) increases in n moving right across the row, increases in m moving 
+    down the column.
+    """
     m,n=grid.gridsize
     for i in range(m):
         for j in range(n):
@@ -156,10 +161,11 @@ def gridprinter(grid):
                     print("")           
 
 def file_reader(fname):
-    """Preliminary file_reader. Needs to be made more robust. Use .txt file where
-    first row is the distances between nodes horizontally, second row is the
-    distances between nodes vertically. This repeats for the size of the grid. 
-    End each line with a space."""
+    """
+    Preliminary file_reader. Use .txt file where first row is the distances 
+    between nodes horizontally, second row is the distances between nodes 
+    vertically. Repeats for the size of the grid. End each line with a space.
+    """
     file=open(fname, 'r')
     across=[]
     updown=[]
