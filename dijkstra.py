@@ -24,7 +24,7 @@ def dijkstra_alg(current, visited, pathlist, distlist, grid):
             else:
                 pathlist[c]=[pathlist[c],current]
     visited[current]=True
-    #sorting adjecents by distance form start
+    #sorting adjecents by distance from start
     tempdist=[]
     tempkey=[]
     sortlist=[]
@@ -33,27 +33,12 @@ def dijkstra_alg(current, visited, pathlist, distlist, grid):
     tempdist=[distlist[value] for value in tempkey]
     sortlist=sorted(zip(tempdist,tempkey))
     #calling unvisited nodes recursively by increasing distance
-    for i in range(len(sortlist)):
+    for i in range(len(tempkey)):
         if visited[sortlist[i][1]]==False:
             dijkstra_alg(sortlist[i][1],visited,pathlist,distlist, grid) #recursively runs dijkstra_alg until all nodes visited
 
 def path_printer(start,end,pathlist,distlist):
-    print("\nShortest path from {} to {}:" .format(start,end))
-    if start==end:
-        print("Start and end points are the same. Path is trivial.")
-        return
-    current=end
-    while current!=start:
-        if current==end:
-            travelpath=str(current)
-        else:
-            travelpath=str(current)+" -> "+travelpath
-        current=pathlist[current]
-    travelpath=str(start)+" -> "+travelpath
-    print(travelpath)
-    print("Length is: {}" .format(distlist[end]))
-
-def rpath_printer(start,end,pathlist,distlist):
+    """Prints paths found recursively in rpath"""
     print("\nShortest path from {} to {}:" .format(start,end))
     if start==end:
         print("Start and end points are the same. Path is trivial.")
@@ -65,15 +50,22 @@ def rpath_printer(start,end,pathlist,distlist):
     print("Length is: {}" .format(distlist[end]))
 
 def rpath(start,current,pathlist,distlist,travelpath,index):
+    """Recursively finds all shortest paths between two nodes. Accounts for
+    all permutations of ties in distance."""
     if current==start:
         travelpath[index]=str(start)+travelpath[index]
         return 
+    indexlist=[]
     if type(pathlist[current])==list:
         for i in range(len(pathlist[current])-1): #adding new lists
-            travelpath.append(" -> "+str(current)+travelpath[index])
-        travelpath[index]=" -> "+str(current)+travelpath[index]
+            travelpath.append(" -> "+str(current)+travelpath[index]) #copying work of this list
+            indexlist.append(len(travelpath)-1)
+        travelpath[index]=" -> "+str(current)+travelpath[index] #adding entry to list
         for i in range(len(pathlist[current])):
-            rpath(start,pathlist[current][i],pathlist,distlist,travelpath,index+i)
+            if i==(len(pathlist[current])-1):
+                rpath(start,pathlist[current][i],pathlist,distlist,travelpath,index)
+            else:
+                rpath(start,pathlist[current][i],pathlist,distlist,travelpath,indexlist[i])
     else:
         travelpath[index]=" -> "+str(current)+travelpath[index]
         rpath(start,pathlist[current],pathlist,distlist,travelpath,index)
@@ -113,7 +105,7 @@ def dijkstra(grid, start, avoid = None):
     #print("pathlist {}" .format(pathlist)) #to check. to be removed
     #print("distlist {}" .format(distlist)) #to check. to be removed
     print("\nShortest path to all points in grid calculated using Dijkstra's Algorithm.")
-    print(f"You are avoiding the follwing points: {avoid}")
+    print(f"You are avoiding the following points: {avoid}")
     flag=True
     while flag==True:
         tempinp=input("Where do you want to go from {}?:" .format(start))
@@ -163,9 +155,6 @@ def dijkstra(grid, start, avoid = None):
                     
 def test():
     """Test with example 1 in grid.py"""
-    grid=g.truegrid('grid2.txt')
-    g.gridprinter(grid)
-    dijkstra(grid,(0,0))
     grid=g.example1()
     print(f"Here is the grid for this example: \n{grid}") 
     print("\nNow we will run Dijkstra's Algorithm.")
@@ -186,6 +175,12 @@ def test2():
     #this time avoid vectorized ['1', '6'] to get path 0 -> 7 -> 8 -> 2 -> 3
     dijkstra(grid, '0', avoid = ['1', '6'])
     
+def rprinttest():
+    """Demonstrates recursive pathfinder that accounts for multiple shortest
+    paths. Generates grid from grid2.txt file."""
+    grid=g.truegrid('grid1.txt')
+    g.gridprinter(grid)
+    dijkstra(grid,(0,0))
                     
             
                     
