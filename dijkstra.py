@@ -1,3 +1,9 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Authors: Alan Su and Peter Holmes
+"""
+
 from math import inf
 import grid as g
 
@@ -47,7 +53,22 @@ def path_printer(start,end,pathlist,distlist):
     print(travelpath)
     print("Length is: {}" .format(distlist[end]))
     
-def dijkstra(grid,start):
+def dijkstra(grid, start, avoid = None):
+    """ 
+    find shortest path using dijkstra's algorith from a starting node on a
+    grid (will be prompted for endpoint later). Also can specify any nodes you
+    wish to avoid (allowed to be list of multiple nodes)
+    """
+    
+    if avoid != None:
+        if len(avoid) > 1:
+            for node in avoid:
+                grid.avoid(node)
+        else:
+            grid.avoid(avoid)
+    else:
+        avoid = [None, None]
+    
     if start not in grid.nodes():#needs to be integrated
         return "Not acceptable input, try again."
     #initializing pathlist and distlist and visited
@@ -70,7 +91,13 @@ def dijkstra(grid,start):
     flag=True
     while flag==True:
         end=str(input("Where do you want to go from {}?:" .format(start)))
-        if end in grid.nodes():
+        if end in avoid or end == avoid:
+            print("You can not go to the node you are avoiding")
+            print("Acceptable inputs are:")
+            for i in range(grid.size()):
+                if grid.nodes()[i]!= start and grid.nodes()[i] not in avoid and grid.nodes()[i] != avoid:
+                    print(grid.nodes()[i])
+        elif end in grid.nodes():
             path_printer(start,end,pathlist,distlist)
             print("")
             marker=input("Try another point? (input n to exit):")
@@ -80,13 +107,16 @@ def dijkstra(grid,start):
             print("Input not understood. Try entering the name of a node or 'all' to print all shortest paths. You don't need to input in string format.")
             print("Acceptable inputs are:")
             for i in range(grid.size()):
-                if grid.nodes()[i]!=start:
+                if grid.nodes()[i]!= start and grid.nodes()[i] not in avoid and grid.nodes()[i] != avoid:
                     print(grid.nodes()[i])
                     
 def test():
     """Test with example 1 in grid.py"""
     grid=g.example1()
-    dijkstra(grid,'C')
+    #check with endpoint 'E' to get path of C -> A -> E
+    dijkstra(grid,'C') 
+    #this time avoid 'A' but still have endpoint 'E' to get path of C -> B -> E
+    dijkstra(grid, 'C', avoid = 'A') 
 
 def test2():
     """Test with example 2 in grid.py"""

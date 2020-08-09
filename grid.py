@@ -1,32 +1,30 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Thu Aug  6 00:21:30 2020
-
-@author: PetersMacBook
+Authors: Alan Su and Peter Holmes
 """
 
-
 from random import randint
+from math import inf
 from string import ascii_uppercase as caps
 
 
 class Grid:
     def __init__(self, node_list, num, gridsize='N/A'):
         keys = [node_list[i] for i in range(num)]
-        dicts = {}
+        grid = {}
         
         for i in keys:
-            dicts[i] = {"adj": [], "dist": []}   
+            grid[i] = {"adj": [], "dist": []}   
             
-        self.dict = dicts
+        self.grid = grid
         self.gridsize = gridsize
         
     def __repr__(self):
         rep = ""
         
-        for key in self.dict:
-            rep += f"\n{key}: {self.dict[key]}"
+        for key in self.grid:
+            rep += f"\n{key}: {self.grid[key]}"
         
         return rep
                  
@@ -38,49 +36,50 @@ class Grid:
         if distance == None:
             distance = randint(0, 9)
         
-        d = self.dict
+        g = self.grid
      
-        if node1 in d and node2 in d and node1 != node2:      
-            d[node1]['adj'].append(node2)
-            d[node1]['dist'].append(distance)
+        if node1 in g and node2 in g and node1 != node2:      
+            g[node1]['adj'].append(node2)
+            g[node1]['dist'].append(distance)
             
-            d[node2]['adj'].append(node1)
-            d[node2]['dist'].append(distance)
+            g[node2]['adj'].append(node1)
+            g[node2]['dist'].append(distance)
         else:
             raise KeyError("Input names of two different existing nodes")
             
     def fill(self):
         """ auto-fills all remaining possible connections betweeen nodes """
         nodes = self.nodes()
-        d = self.dict
+        g = self.grid
         
         for node1 in nodes:
             for node2 in nodes:
-                if node2 not in d[node1]['adj'] and node1 != node2:
+                if node2 not in g[node1]['adj'] and node1 != node2:
                     self.edge(node1, node2)
 
     def nodes(self):
         """ return list of all nodes within Grid class """
         node_list = []
         
-        for key in self.dict.keys():
+        for key in self.grid.keys():
             node_list.append(key)  
             
         return node_list
        
     def size(self):
         """ return size of Grid class """
-        return len(self.dict)   
+        return len(self.grid)   
               
     def adj(self, node):
         """ return all adjacencies of an inputted node """
-        return self.dict[node]['adj']
+        return self.grid[node]['adj']
     
     def dist(self, node):
         """ return all distances from an inputted node """
-        return self.dict[node]['dist']
+        return self.grid[node]['dist']
     
     def dist2(self, node1, node2):
+        """ returns the distance bewteen two inputted nodes """
         adj1=self.adj(node1)
         dist1=self.dist(node1)
         adjdict={}
@@ -90,16 +89,21 @@ class Grid:
             return adjdict[node2]
         else:
             print('Inputted nodes not adjacent.')
-   
-if __name__ == "__main__":    
-    g = Grid(caps, 5)
-    g.edge('A', 'B', 3)
-    g.edge('A', 'C', 7)
-    g.edge('A', 'E', 2)
-    g.edge('B', 'C', 5)
-    g.edge('B', 'D', 9)
-    g.edge('B', 'E', 8)
-    print(g)
+            
+    def avoid(self, node):
+        """ 
+        sets distances to and from inputted node equal to infity to ensure node
+        is avoided in path finding algorithms
+        """
+        for i in range(len(self.dist(node))):
+            self.grid[node]['dist'][i] = inf
+            
+        adj = self.adj(node)
+        
+        for x in adj:
+            index = list(self.adj(x)).index(node)
+            self.grid[x]['dist'][index] = inf
+
 
 def example1(): 
     g = Grid(caps, 5)
