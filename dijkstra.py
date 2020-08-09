@@ -203,7 +203,9 @@ def test4():
     """ Test with a read text file (grid2.txt). True grid with equidistant nodes.
     Demonstrates functionality of multipath printer function"""
     grid=g.truegrid('grid2.txt')
+    print("Here is the grid for this example: \n")
     g.gridprinter(grid)
+    print("\nNow we will run Dijkstra's Algorithm.")
     dijkstra(grid,(0,0))
     
     

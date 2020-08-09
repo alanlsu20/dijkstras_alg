@@ -221,3 +221,10 @@ def example2():
     g.edge('5','4',10)
     return g
 
+<<<<<<< HEAD
+=======
+def example3():
+    g = truegrid('grid1.txt')
+    return g
+
+>>>>>>> 15040c493ae74c325b603423953846f84fc13c6a
