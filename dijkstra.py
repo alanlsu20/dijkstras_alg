@@ -38,7 +38,7 @@ def dijkstra_alg(current, visited, pathlist, distlist, grid):
             dijkstra_alg(sortlist[i][1],visited,pathlist,distlist, grid) #recursively runs dijkstra_alg until all nodes visited
 
 def path_printer(start,end,pathlist,distlist):
-    print("Shortest path from {} to {}:" .format(start,end))
+    print("\nShortest path from {} to {}:" .format(start,end))
     if start==end:
         print("Start and end points are the same. Path is trivial.")
         return
@@ -67,7 +67,7 @@ def dijkstra(grid, start, avoid = None):
         else:
             grid.avoid(avoid)
     else:
-        avoid = [None, None]
+        avoid = [None]
     
     if start not in grid.nodes():#needs to be integrated
         return "Not acceptable input, try again."
@@ -87,10 +87,11 @@ def dijkstra(grid, start, avoid = None):
     dijkstra_alg(start,visited,pathlist,distlist,grid)
     #print("pathlist {}" .format(pathlist)) #to check. to be removed
     #print("distlist {}" .format(distlist)) #to check. to be removed
-    print("Shortest path to all points in grid calculated using Dijkstra's Algorithm.")
+    print("\nShortest path to all points in grid calculated using Dijkstra's Algorithm.")
+    print(f"You are avoiding the follwing points: {avoid}")
     flag=True
     while flag==True:
-        end=str(input("Where do you want to go from {}?:" .format(start)))
+        end=str(input("Where do you want to go from {}?: ".format(start)))
         if end in avoid or end == avoid:
             print("You can not go to the node you are avoiding")
             print("Acceptable inputs are:")
@@ -100,7 +101,7 @@ def dijkstra(grid, start, avoid = None):
         elif end in grid.nodes():
             path_printer(start,end,pathlist,distlist)
             print("")
-            marker=input("Try another point? (input n to exit):")
+            marker=input("Try another point? (input n to exit): ")
             if marker=="n":
                 flag=False
         else:
@@ -121,7 +122,12 @@ def test():
 def test2():
     """Test with example 2 in grid.py"""
     grid=g.example2()
+    #check with endpoint '3' to get path 0 -> 1 -> 2 -> 3
     dijkstra(grid, '0')
+    #this time avoid '1' with endpoint 3 to get path 0 -> 7 -> 6 -> 5 -> 2 -> 3
+    dijkstra(grid, '0', '1')
+    #this time avoid vectorized ['1', '6'] to get path 0 -> 7 -> 8 -> 2 -> 3
+    dijkstra(grid, '0', ['1', '6'])
     
                     
             
