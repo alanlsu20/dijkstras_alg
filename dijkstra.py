@@ -192,7 +192,7 @@ def test3():
     dijkstra(grid, (0,0))
     #this time avoid (1,0) with endpoint (2,0) to get path:
     #(0, 0) -> (0, 1) -> (1, 1) -> (2, 1) -> (2, 0)
-    dijkstra(grid, (0,0), avoid = (1,1))
+    dijkstra(grid, (0,0), avoid = (1,0))
     #this time avoid vectorized [(1,0), (1,1)] with endpoint (2,0) to get path:
     #(0, 0) -> (0, 1) -> (0, 2) -> (1, 2) -> (2, 2) -> (2, 1) -> (2, 0)
     dijkstra(grid, (0,0), [(1,0), (1,1)])

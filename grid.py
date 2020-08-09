@@ -222,6 +222,6 @@ def example2():
     return g
 
 def example3():
-    g = truegrid('grid2.txt')
+    g = truegrid('grid1.txt')
     return g
 
