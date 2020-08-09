@@ -52,7 +52,32 @@ def path_printer(start,end,pathlist,distlist):
     travelpath=str(start)+" -> "+travelpath
     print(travelpath)
     print("Length is: {}" .format(distlist[end]))
-    
+
+def rpath_printer(start,end,pathlist,distlist):
+    print("\nShortest path from {} to {}:" .format(start,end))
+    if start==end:
+        print("Start and end points are the same. Path is trivial.")
+        return
+    travelpath=[" "]
+    rpath(start,end,pathlist,distlist,travelpath, 0)
+    for i in range(len(travelpath)):
+        print("Path {}: {}".format(i+1,travelpath[i]))
+    print("Length is: {}" .format(distlist[end]))
+
+def rpath(start,current,pathlist,distlist,travelpath,index):
+    if current==start:
+        travelpath[index]=str(start)+travelpath[index]
+        return 
+    if type(pathlist[current])==list:
+        for i in range(len(pathlist[current])-1): #adding new lists
+            travelpath.append(" -> "+str(current)+travelpath[index])
+        travelpath[index]=" -> "+str(current)+travelpath[index]
+        for i in range(len(pathlist[current])):
+            rpath(start,pathlist[current][i],pathlist,distlist,travelpath,index+i)
+    else:
+        travelpath[index]=" -> "+str(current)+travelpath[index]
+        rpath(start,pathlist[current],pathlist,distlist,travelpath,index)
+        
 def dijkstra(grid, start, avoid = None):
     """ 
     find shortest path using dijkstra's algorith from a starting node on a
