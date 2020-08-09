@@ -142,11 +142,9 @@ def truegrid(fname):
     for i in range(m):
         for j in range(n):
             node_list.append((i,j))
-    print (node_list)
     g=Grid(node_list,m*n, (m,n))
     for i in range(m):
         for j in range(n):
-            print("i,j is {},{}" .format(i,j))
             if i !=(m-1):
                 g.edge((i,j),(i+1,j), updown[i][j])
             if j !=(n-1):
