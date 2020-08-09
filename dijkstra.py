@@ -1,11 +1,11 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
+MATH260 Final Project
+Dijkstra's Algorithm for Shortest Path Optimization
 Authors: Alan Su and Peter Holmes
 """
 
 from math import inf
-import grid as g
+import grid as g #import of class
 
 def dijkstra_alg(current, visited, pathlist, distlist, grid):
     """Using recursive scheme. Generates list of shortest path to every
@@ -38,6 +38,7 @@ def dijkstra_alg(current, visited, pathlist, distlist, grid):
             dijkstra_alg(sortlist[i][1],visited,pathlist,distlist, grid) #recursively runs dijkstra_alg until all nodes visited
 
 def path_printer(start, end, pathlist, distlist):
+    """Prints paths found with rpath()"""
     print(f"\nShortest path from {start} to {end}:")
     if start == end:
         print("Start and end points are the same. Path is trivial.")
@@ -56,10 +57,10 @@ def rpath(start,current,pathlist,distlist,travelpath,index):
         return 
     indexlist=[]
     if type(pathlist[current])==list:
-        for i in range(len(pathlist[current])-1): #adding new lists
-            travelpath.append(" -> "+str(current)+travelpath[index]) #copying work of this list
+        for i in range(len(pathlist[current])-1): #adding new path entries
+            travelpath.append(" -> "+str(current)+travelpath[index]) #copying current path and adding entry
             indexlist.append(len(travelpath)-1)
-        travelpath[index]=" -> "+str(current)+travelpath[index] #adding entry to list
+        travelpath[index]=" -> "+str(current)+travelpath[index] #adding entry to path
         for i in range(len(pathlist[current])):
             if i==(len(pathlist[current])-1):
                 rpath(start,pathlist[current][i],pathlist,distlist,travelpath,index)
@@ -109,6 +110,7 @@ def dijkstra(grid, start, avoid = None):
         else:
             distlist[grid.nodes()[i]] = inf
     dijkstra_alg(start, visited, pathlist, distlist, grid)
+    #User interface
     print("\nShortest path to all points in grid calculated using Dijkstra's Algorithm.")
     print(f"You are avoiding the following points: {avoid}")
     flag=True
@@ -159,7 +161,7 @@ def dijkstra(grid, start, avoid = None):
                     print(grid.nodes()[i])
                     
 def test():
-    """Test with example 1 in grid.py"""
+    """Test with example 1 in grid.py. Letter-named nodes with avoidance cases."""
     grid = g.example1()
     print(f"Here is the grid for this example: \n{grid}") 
     print("\nNow we will run Dijkstra's Algorithm.")
@@ -170,7 +172,7 @@ def test():
     dijkstra(grid, 'C', avoid = 'A') 
 
 def test2():
-    """Test with example 2 in grid.py"""
+    """Test with example 2 in grid.py". Integer-named nodes with avoidance cases."""
     grid = g.example2()
     print(f"Here is the grid for this example: \n{grid}") 
     print("\nNow we will run Dijkstra's Algorithm.")
@@ -182,8 +184,8 @@ def test2():
     dijkstra(grid, '0', avoid = ['1', '6'])
                     
 def test3():
-    """ Test with example 3 in grid.py """
-    grid = g.example3()
+    """ Test with a read text file (grid1.txt). True grid with tuple-named nodes with avoidance cases"""
+    grid = g.truegrid('grid1.txt')
     print("Here is the grid for this example: \n")
     g.gridprinter(grid)
     print("\nNow we will run Dijkstra's Algorithm.")
@@ -192,14 +194,14 @@ def test3():
     dijkstra(grid, (0,0))
     #this time avoid (1,0) with endpoint (2,0) to get path:
     #(0, 0) -> (0, 1) -> (1, 1) -> (2, 1) -> (2, 0)
-    dijkstra(grid, (0,0), avoid = (1,1))
+    dijkstra(grid, (0,0), avoid = (1,0))
     #this time avoid vectorized [(1,0), (1,1)] with endpoint (2,0) to get path:
     #(0, 0) -> (0, 1) -> (0, 2) -> (1, 2) -> (2, 2) -> (2, 1) -> (2, 0)
     dijkstra(grid, (0,0), [(1,0), (1,1)])
     
-def rprinttest():
-    """Demonstrates recursive pathfinder that accounts for multiple shortest
-    paths. Generates grid from grid2.txt file with equidistant nodes."""
+def test4():
+    """ Test with a read text file (grid2.txt). True grid with equidistant nodes.
+    Demonstrates functionality of multipath printer function"""
     grid=g.truegrid('grid2.txt')
     g.gridprinter(grid)
     dijkstra(grid,(0,0))

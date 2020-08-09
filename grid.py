@@ -1,6 +1,6 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
+MATH260 Final Project
+Dijkstra's Algorithm for Shortest Path Optimization
 Authors: Alan Su and Peter Holmes
 """
 
@@ -162,7 +162,7 @@ def gridprinter(grid):
 
 def file_reader(fname):
     """
-    Preliminary file_reader. Use .txt file where first row is the distances 
+    File reader. Use .txt file where first row is the distances 
     between nodes horizontally, second row is the distances between nodes 
     vertically. Repeats for the size of the grid. End each line with a space.
     """
@@ -182,7 +182,7 @@ def file_reader(fname):
         updown[i].pop()
         for j in range(len(updown[0])):
             updown[i][j] = int(updown[i][j])
-    for i in range(len(across)):#converting to integer and popping off last blank entry
+    for i in range(len(across)): #converting to integer and popping off last blank entry
         across[i].pop()
         for j in range(len(across[0])):
             across[i][j] = int(across[i][j])
@@ -219,9 +219,5 @@ def example2():
     g.edge('3','5',14)
     g.edge('3','4',9)
     g.edge('5','4',10)
-    return g
-
-def example3():
-    g = truegrid('grid2.txt')
     return g
 
