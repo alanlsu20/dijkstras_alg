@@ -76,11 +76,11 @@ class Grid:
     
     def dist2(self, node1, node2):
         """ Returns the distance bewteen two inputted nodes """
-        adj1=self.adj(node1)
-        dist1=self.dist(node1)
-        adjdict={}
+        adj1 = self.adj(node1)
+        dist1 = self.dist(node1)
+        adjdict = {}
         for i in range(len(adj1)):
-            adjdict[adj1[i]]=dist1[i]
+            adjdict[adj1[i]] = dist1[i]
         if node2 in adj1:
             return adjdict[node2]
         else:
@@ -106,19 +106,19 @@ def truegrid(fname):
     Creates a true grid from a file. Outline for file specificaitons in 
     file_reader() doc string. Print using gridprinter(). 
     """
-    across, updown=file_reader(fname)
-    m=len(across)
-    n=len(updown[0])
-    node_list=[]
+    across, updown = file_reader(fname)
+    m = len(across)
+    n = len(updown[0])
+    node_list = []
     for i in range(m):
         for j in range(n):
             node_list.append((i,j))
-    g=Grid(node_list,m*n, (m,n))
+    g = Grid(node_list, m*n, (m,n))
     for i in range(m):
         for j in range(n):
-            if i !=(m-1):
-                g.edge((i,j),(i+1,j), updown[i][j])
-            if j !=(n-1):
+            if i != (m-1):
+                g.edge((i,j), (i+1,j), updown[i][j])
+            if j != (n-1):
                     g.edge((i,j),(i,j+1), across[i][j])
     return g
 
@@ -128,35 +128,35 @@ def gridprinter(grid):
     (m,n) increases in n moving right across the row, increases in m moving 
     down the column.
     """
-    m,n=grid.gridsize
+    m,n = grid.gridsize
     for i in range(m):
         for j in range(n):
-            current=grid.nodes()[j+(i*n)]
-            print(current, end="")
-            if j!=(n-1): 
-                rightnode=grid.nodes()[j+(i*n)+1]
-                print("==[{:^3}]==".format(grid.dist2(current,rightnode)), end="")
+            current = grid.nodes()[j+(i*n)]
+            print(current, end = "")
+            if j != (n-1): 
+                rightnode = grid.nodes()[j+(i*n)+1]
+                print("==[{:^3}]==".format(grid.dist2(current,rightnode)), end = "")
             else:
                 print("")
-        if i!=(m-1): #if not last line
+        if i != (m-1): #if not last line
             for j in range(n):#spacing line
-                print("  ||  ", end="")
-                if j!=(n-1):
-                    print("         ", end="")
+                print("  ||  ", end = "")
+                if j != (n-1):
+                    print("         ", end = "")
                 else:
                     print("")
             for j in range(n):#vertical distance
-                current=grid.nodes()[j+(i*n)]
-                upnode=grid.nodes()[j+((i+1)*n)]
-                print("[{:^4}]".format(grid.dist2(current,upnode)), end="")
-                if j!=(n-1):
-                    print("         ", end="")
+                current = grid.nodes()[j+(i*n)]
+                upnode = grid.nodes()[j+((i+1)*n)]
+                print("[{:^4}]".format(grid.dist2(current,upnode)), end = "")
+                if j != (n-1):
+                    print("         ", end = "")
                 else:
                     print("")
             for j in range(n):#spacing line
-                print("  ||  ", end="")
-                if j!=(n-1):
-                    print("         ", end="")
+                print("  ||  ", end = "")
+                if j != (n-1):
+                    print("         ", end = "")
                 else:
                     print("")           
 
@@ -166,26 +166,26 @@ def file_reader(fname):
     between nodes horizontally, second row is the distances between nodes 
     vertically. Repeats for the size of the grid. End each line with a space.
     """
-    file=open(fname, 'r')
-    across=[]
-    updown=[]
-    line=file.readline()
+    file = open(fname, 'r')
+    across = []
+    updown = []
+    line = file.readline()
     while line:
-        data=line.split(' ')
+        data = line.split(' ')
         across.append(data)
-        line=file.readline()
+        line = file.readline()
         if line:
-            data=line.split(' ')
+            data = line.split(' ')
             updown.append(data)
-        line=file.readline()
+        line = file.readline()
     for i in range(len(updown)): #converting to integer and popping off last blank entry
         updown[i].pop()
         for j in range(len(updown[0])):
-            updown[i][j]=int(updown[i][j])
+            updown[i][j] = int(updown[i][j])
     for i in range(len(across)):#converting to integer and popping off last blank entry
         across[i].pop()
         for j in range(len(across[0])):
-            across[i][j]=int(across[i][j])
+            across[i][j] = int(across[i][j])
     return across, updown
     
 
