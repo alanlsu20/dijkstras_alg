@@ -125,9 +125,9 @@ def test2():
     #check with endpoint '3' to get path 0 -> 1 -> 2 -> 3
     dijkstra(grid, '0')
     #this time avoid '1' with endpoint 3 to get path 0 -> 7 -> 6 -> 5 -> 2 -> 3
-    dijkstra(grid, '0', '1')
+    dijkstra(grid, '0', avoid = '1')
     #this time avoid vectorized ['1', '6'] to get path 0 -> 7 -> 8 -> 2 -> 3
-    dijkstra(grid, '0', ['1', '6'])
+    dijkstra(grid, '0', avoid = ['1', '6'])
     
                     
             
