@@ -88,6 +88,9 @@ def dijkstra(grid, start, avoid = None):
     if len(start) > 1:
         if avoid == None:
             avoid = [None]
+        elif type(avoid) == list:
+            for node in avoid:
+                grid.avoid(node) 
         else:
             grid.avoid(avoid)
     elif avoid != None:
@@ -193,8 +196,15 @@ def test3():
     print("Here is the grid for this example: \n")
     g.gridprinter(grid)
     print("\nNow we will run Dijkstra's Algorithm.")
-    #
+    #check with endpoint (2,0) to get path:
+    #(0, 0) -> (1, 0) -> (2, 0)
     dijkstra(grid, (0,0))
+    #this time avoid (1,0) with endpoint (2,0) to get path:
+    #(0, 0) -> (0, 1) -> (1, 1) -> (2, 1) -> (2, 0)
+    dijkstra(grid, (0,0), avoid = (1,1))
+    #this time avoid vectorized [(1,0), (1,1)] with endpoint (2,0) to get path:
+    #(0, 0) -> (0, 1) -> (0, 2) -> (1, 2) -> (2, 2) -> (2, 1) -> (2, 0)
+    dijkstra(grid, (0,0), [(1,0), (1,1)])
     
                     
     
