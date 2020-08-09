@@ -204,7 +204,7 @@ def example2():
     node_list=[]
     for i in range(9):
         node_list.append(str(i))
-    g=Grid(node_list,9)
+    g = Grid(node_list,9)
     g.edge('0','1',4)
     g.edge('0','7',8)
     g.edge('1','7',11)
