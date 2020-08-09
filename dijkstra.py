@@ -201,7 +201,9 @@ def rprinttest():
     """Demonstrates recursive pathfinder that accounts for multiple shortest
     paths. Generates grid from grid2.txt file with equidistant nodes."""
     grid=g.truegrid('grid2.txt')
+    print("Here is the grid for this example: \n")
     g.gridprinter(grid)
+    print("\nNow we will run Dijkstra's Algorithm.")
     dijkstra(grid,(0,0))
     
     
