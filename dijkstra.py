@@ -114,6 +114,8 @@ def dijkstra(grid, start, avoid = None):
 def test():
     """Test with example 1 in grid.py"""
     grid=g.example1()
+    print(f"Here is the grid for this example: \n{grid}") 
+    print("\nNow we will run Dijkstra's Algorithm.")
     #check with endpoint 'E' to get path of C -> A -> E
     dijkstra(grid,'C') 
     #this time avoid 'A' but still have endpoint 'E' to get path of C -> B -> E
@@ -122,6 +124,8 @@ def test():
 def test2():
     """Test with example 2 in grid.py"""
     grid=g.example2()
+    print(f"Here is the grid for this example: \n{grid}") 
+    print("\nNow we will run Dijkstra's Algorithm.")
     #check with endpoint '3' to get path 0 -> 1 -> 2 -> 3
     dijkstra(grid, '0')
     #this time avoid '1' with endpoint 3 to get path 0 -> 7 -> 6 -> 5 -> 2 -> 3
