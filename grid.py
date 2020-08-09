@@ -4,7 +4,6 @@
 Authors: Alan Su and Peter Holmes
 """
 
-from random import randint
 from math import inf
 from string import ascii_uppercase as caps
 
@@ -28,13 +27,11 @@ class Grid:
         
         return rep
                  
-    def edge(self, node1, node2, distance = None):
+    def edge(self, node1, node2, distance = 1):
         """ 
         specify a connection between two nodes, and their distance if desired - 
-        if distance not input will be randomly assigned an integer value 
+        if distance not input will be assigned value of '1'
         """
-        if distance == None:
-            distance = randint(0, 9)
         
         g = self.grid
      
