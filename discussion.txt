@@ -1,33 +1,42 @@
-In this .txt file we should write up the discussion of our project:
+Our project uses 4 test funcitons to illustrate the scope of our Dijkstra 
+functions and Grid Class. test() runs Dijkstra's algorithm on a grid partially
+manually created with specified edge connections and distances using Grid.edge,
+and the remainder of potential connections between vertices created via the
+Grid.fill funciton which assigned a default distance value of 12. The letter
+named vertex grid also showed the ability of dijkstra funciton to modify the 
+ideal route when specifying nodes to avoid. test2() illustrates similar 
+functionality although now on a numeric named vertex grid that was entirely 
+manually created. Additionally, test2() shows the ability to input a vectorized 
+list of nodes to avoid and the algorithm adjusts the path accordingly. test3()
+has the grid creation done in a different method than manual input. Rather,
+it parses in a .txt file that contains adjacent horizontal and vertical 
+distances between nodes and creates a corresponding grid with (m,n) coordinates
+notation similar to a matrix. Even with an input start location as a tuple due 
+to the coordinate nature of the grid within test3(), the dijkstra algorithm we
+constructed is robust enough to still run and output the shortest route, as
+well as taking into consideration, once again nodes to avoid, which still are
+able to be vectorized even in tuple notation. Lastly, test4() displays the
+ability of our dijkstra function to not crash upon determining that there are
+multiple paths that are equal and qualify for the shortest route - and rather
+displays all such different paths that one could take that are equal in 
+shortest distance.
 
-
-From the project document:
-The discussion (graded): Say something about your work.
-• Write your document in LaTeX. (I’ll post templates that include formatting python
-code and math -just the bare minimum is needed here; learning TeX a low priority).
-• Description: Give an informal discussion of your code - how it works, how you
-organized the code, and and the main computational challenges (what is notable about
-it?). This is not formal documentation; just a chance for you to share what you’ve
-done. You can include a bit of the necessary mathematical context, but this is not a
-focus.
-• Discussion: Discuss your results - analyze the output of your code applied to some
-problem. The amount to discuss depends on the project; you may find there is more
-to say on the computational side whereas other projects are more about exploring an
-application. What interesting features have you identified?
-
-
-From piazza:
-As a reminder, you should write a brief discussion of your project 
-(see part C of the project description). This should be a file in your repository. 
-Think of it as a sort of brief tour of your problem and and interesting features for the 
-viewer of your code.
-
-It doesn't have toi be long, but I do expect there to be something. What you 
-point out will help me to be able to give you credit for your work 
-(you are, in a sense, defining what you've done).
-
-I noted that it should be written in LaTeX - this is not a requirement as 
-previously stated. It's probably easiest to use latex if you have math to 
-format, but you are likely writing mostly text and code. You can refer to code 
-in your discussion (e.g. code example functions), and let those examples help 
-to illustrate your points.
+In addition to the aforementioned description of our implementation of
+Dijkstra's algorithm as well as a Grid Class, for our project we decided to add
+an additional parameter of "avoidance".We recognized that merely having 
+Dijkstra's to dictate a path of shortest distance was highly idealized and 
+would only be realistic in a vacuum. In actuality, there are many other factors
+that might impact one's decision of route or the time taken to traverse a path
+rather than merely distance. For instance, while navigating a city, there might
+be certain areas known to have heavy traffic, or other streets that are closed
+for construction. Therefore, you might have prior knowledge of particular 
+locations that you wish to avoid, even if "by the crow fly's" purely from a
+distance standpoint - it might be the believed shortest path. As such, within
+our dijkstra funtion, by specifying nodes that you wish to avoid (this
+parameter is vectorized as well - so you can input multiple nodes at once), it
+retroactively alters all adjacent distances to the nodes in question to an 
+infinite distance, so that upon running Dijkstra standard algorithm, those
+nodes are for certain left off the resultant ideal path. Ultimately, this 
+project aided in demonstrating how an algorithm can begin to be made more 
+adaptive in order to be more correctly implemented for a real world model or 
+scenario.
