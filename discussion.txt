@@ -31,3 +31,28 @@ previously stated. It's probably easiest to use latex if you have math to
 format, but you are likely writing mostly text and code. You can refer to code 
 in your discussion (e.g. code example functions), and let those examples help 
 to illustrate your points.
+
+
+
+
+
+
+In addition to the aforementioned description of our implementation of
+Dijkstra's algorithm as well as a Grid Class, for our project we decided to add
+an additional parameter of "avoidance".We recognized that merely having 
+Dijkstra's to dictate a path of shortest distance was highly idealized and 
+would only be realistic in a vacuum. In actuality, there are many other factors
+that might impact one's decision of route or the time taken to traverse a path
+rather than merely distance. For instance, while navigating a city, there might
+be certain areas known to have heavy traffic, or other streets that are closed
+for construction. Therefore, you might have prior knowledge of particular 
+locations that you wish to avoid, even if "by the crow fly's" purely from a
+distance standpoint - it might be the believed shortest path. As such, within
+our Dijkstra funtion, by specifying nodes that you wish to avoid (this
+parameter is vectorized as well - so you can input multiple nodes at once), it
+retroactively alters all adjacent distances to the nodes in question to an 
+infinite distance, so that upon running Dijkstra standard algorithm, those
+nodes are for certain left off the resultant ideal path. Ultimately, this 
+project aided in demonstrating how an algorithm can begin to be made more 
+adaptive in order to be more correctly implemented for a real world model or 
+scenario.
