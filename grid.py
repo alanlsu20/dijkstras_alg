@@ -29,7 +29,7 @@ class Grid:
     def edge(self, node1, node2, distance = 12):
         """ 
         Specify a connection between two nodes, and their distance if desired. 
-        If distance not input will be assigned value of '10'
+        If distance not input will be assigned value of '10'.
         """
         
         g = self.grid
@@ -44,7 +44,7 @@ class Grid:
             raise KeyError("Input names of two different existing nodes")
             
     def fill(self):
-        """ Auto-fills all remaining possible connections betweeen nodes """
+        """ Auto-fills all remaining possible connections betweeen nodes. """
         nodes = self.nodes()
         g = self.grid
         
@@ -54,7 +54,7 @@ class Grid:
                     self.edge(node1, node2)
 
     def nodes(self):
-        """ Return list of all nodes within Grid class """
+        """ Return list of all nodes within Grid class. """
         node_list = []
         
         for key in self.grid.keys():
@@ -63,19 +63,19 @@ class Grid:
         return node_list
        
     def size(self):
-        """ Return size of Grid class """
+        """ Return size of Grid class. """
         return len(self.grid)   
               
     def adj(self, node):
-        """ Return all adjacencies of an inputted node """
+        """ Return all adjacencies of an inputted node. """
         return self.grid[node]['adj']
     
     def dist(self, node):
-        """ Return all distances from an inputted node """
+        """ Return all distances from an inputted node. """
         return self.grid[node]['dist']
     
     def dist2(self, node1, node2):
-        """ Returns the distance bewteen two inputted nodes """
+        """ Returns the distance bewteen two inputted nodes. """
         adj1 = self.adj(node1)
         dist1 = self.dist(node1)
         adjdict = {}
@@ -89,7 +89,7 @@ class Grid:
     def avoid(self, node):
         """ 
         Sets distances to and from inputted node equal to infity to ensure node
-        is avoided in path finding algorithms
+        is avoided in path finding algorithms.
         """
         for i in range(len(self.dist(node))):
             self.grid[node]['dist'][i] = inf
@@ -186,8 +186,7 @@ def file_reader(fname):
         across[i].pop()
         for j in range(len(across[0])):
             across[i][j] = int(across[i][j])
-    return across, updown
-    
+    return across, updown   
 
 def example1(): 
     g = Grid(caps, 5)
@@ -201,7 +200,7 @@ def example1():
     return g
 
 def example2():
-    node_list=[]
+    node_list = []
     for i in range(9):
         node_list.append(str(i))
     g = Grid(node_list,9)
@@ -220,11 +219,3 @@ def example2():
     g.edge('3','4',9)
     g.edge('5','4',10)
     return g
-
-<<<<<<< HEAD
-=======
-def example3():
-    g = truegrid('grid1.txt')
-    return g
-
->>>>>>> 15040c493ae74c325b603423953846f84fc13c6a
